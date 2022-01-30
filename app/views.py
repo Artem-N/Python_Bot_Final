@@ -13,7 +13,7 @@ def start(update: Update, context: CallbackContext):
 
 def help(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id, text='Цей бот створено для отримання інформації'
-                                                                    'яку він може надати шляхом натискання'
+                                                                    ' яку він може надати шляхом натискання'
                                                                     ' відповідних кнопок з чату.')
 
 
@@ -49,3 +49,4 @@ def init_bot():
 
     updater.start_polling()
     updater.idle()
+    return 'Bot started'
