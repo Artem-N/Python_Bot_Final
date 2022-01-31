@@ -8,12 +8,18 @@ from app import flask_app, Config
 
 def start(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id, text=f'Привіт {update.effective_user.username}'
-                                                                    f', проходь, розувайся, почувай себе як вдома!')
+                                                                    f', проходь, розувайся, почувай себе як вдома!'
+                                                                    f' Обери чим хочеш поцікавитись сьогодні.')
+    update.message.reply_text(main_menu_message(), reply_markup=main_menu_keyboard())
+
+
+def menu_command(update: Update, context: CallbackContext):
     update.message.reply_text(main_menu_message(), reply_markup=main_menu_keyboard())
 
 
 def main_menu(update: Update, context: CallbackContext):
     query = update.callback_query
+    query.answer()
     context.bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   text=main_menu_message(),
@@ -22,6 +28,7 @@ def main_menu(update: Update, context: CallbackContext):
 
 def first_menu(update: Update, context: CallbackContext):
     query = update.callback_query
+    query.answer()
     context.bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   text=first_menu_message(),
@@ -30,6 +37,7 @@ def first_menu(update: Update, context: CallbackContext):
 
 def second_menu(update: Update, context: CallbackContext):
     query = update.callback_query
+    query.answer()
     context.bot.edit_message_text(chat_id=query.message.chat_id,
                                   message_id=query.message.message_id,
                                   text=second_menu_message(),
@@ -70,9 +78,7 @@ def second_menu_message():
 
 
 def help_(update: Update, context: CallbackContext):
-    context.bot.send_message(chat_id=update.effective_chat.id, text='Цей бот створено для отримання інформації'
-                                                                    ' яку він може надати шляхом натискання'
-                                                                    ' відповідних кнопок з чату.')
+    context.bot.send_message(chat_id=update.effective_chat.id, text='Цей бот створено для отримання інформації')
 
 
 @flask_app.route('/init-bot', methods=['GET', 'POST'])
@@ -82,7 +88,7 @@ def init_bot():
 
     start_cmd = CommandHandler('start', start)
     help_cmd = CommandHandler('help', help_)
-    menu_cmd = CommandHandler('menu', start)
+    menu_cmd = CommandHandler('menu', menu_command)
 
     dispatcher.add_handler(start_cmd)
     dispatcher.add_handler(help_cmd)
