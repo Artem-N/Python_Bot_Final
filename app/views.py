@@ -48,5 +48,4 @@ def init_bot():
     dispatcher.add_handler(help_cmd)
 
     updater.start_polling()
-    updater.idle()
     return 'Bot started'
