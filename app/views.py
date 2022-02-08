@@ -316,7 +316,7 @@ def cancel(update: Update, context: CallbackContext):
     return ConversationHandler.END
 
 
-@flask_app.route('/', methods=['GET', 'POST'])
+@flask_app.route('/init_bot', methods=['GET', 'POST'])
 def init_bot():
     updater = Updater(token=Config.TOKEN_BOT, use_context=True)
     dispatcher = updater.dispatcher
