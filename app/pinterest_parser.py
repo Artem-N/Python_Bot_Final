@@ -3,7 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 
 headers = {
-    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.80 Safari/537.36'
+    'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) '
+                  'Chrome/98.0.4758.80 Safari/537.36'
 }
 
 
@@ -39,7 +40,8 @@ def parse_pinterest_dogs():
 
 def parse_pinterest_mems():
     serv = Service('/Users/artemnovickij/Downloads/chromedriver')
-    url = 'https://www.pinterest.com/search/pins/?rs=ac&len=2&q=%D0%BC%D0%B5%D0%BC%D1%8B&eq=%D0%BC%D0%B5%D0%BC&etslf=8368&term_meta[]=%D0%BC%D0%B5%D0%BC%D1%8B%7Cautocomplete%7C0'
+    url = 'https://www.pinterest.com/search/pins/?rs=ac&len=2&q=%D0%BC%D0%B5%D0%BC%D1%8B&eq=%D0%BC%D0%B5%D0%BC&etsl' \
+          'f=8368&term_meta[]=%D0%BC%D0%B5%D0%BC%D1%8B%7Cautocomplete%7C0'
     driver = webdriver.Chrome(service=serv)
     driver.get(url)
     page = driver.page_source

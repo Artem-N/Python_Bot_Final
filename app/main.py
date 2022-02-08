@@ -39,7 +39,8 @@ def help_(update: Update, context: CallbackContext):
     context.bot.send_message(chat_id=update.effective_chat.id,
                              text='Цей бот створено в навчальних цілях, завдяки ньому ви можете дізнатись інформацію '
                                   'з його розділів. Для отримання інформації натисніть кнопку: /menu. '
-                                  'Щоб розпочати все заново натисніть кнопку: /start. В розділі "Wikipedia" ви можете запитати мене все що вас цікавить.')
+                                  'Щоб розпочати все заново натисніть кнопку: /start. В розділі "Wikipedia" '
+                                  'ви можете запитати мене все що вас цікавить.')
 
 
 def main_menu(update: Update, context: CallbackContext):
@@ -249,7 +250,8 @@ def handler_reddit_hot(update: Update, context: CallbackContext):
     if red_hot:
         for data in red_hot:
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}.\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
+                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}."
+                                          f"\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text='Виникла проблема із сервером, спробуйте обрати ще раз!')
@@ -263,7 +265,8 @@ def handler_reddit_new(update: Update, context: CallbackContext):
     if red_new:
         for data in red_new:
             context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}.\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
+                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}."
+                                          f"\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text='Виникла проблема із сервером, спробуйте обрати ще раз!')
@@ -276,8 +279,10 @@ def handler_reddit_top(update: Update, context: CallbackContext):
     red_top = parse_reddit_top()
     if red_top:
         for data in red_top:
-            context.bot.send_message(chat_id=update.effective_chat.id,
-                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}.\nКількість голосів: {data['number_vote']}.\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
+            context.bot.send_message(parse_mode='HTML', chat_id=update.effective_chat.id,
+                                     text=f"Час публікації: {data['time']}\nЗаголовок -> {data['title']}."
+                                          f"\nКількість голосів: {data['number_vote']}."
+                                          f"\nКількість коментарів: {data['comment']}\nLink: {data['link']}")
     else:
         context.bot.send_message(chat_id=update.effective_chat.id,
                                  text='Виникла проблема із сервером, спробуйте обрати ще раз!')
@@ -299,7 +304,8 @@ def handl_message_wiki(update: Update, context: CallbackContext):
         context.bot.send_message(chat_id=update.effective_chat.id, text=wiki, reply_markup=wiki_menu_keyboard())
     except (PageError, DisambiguationError):
         return context.bot.send_message(chat_id=update.effective_chat.id,
-                                        text="Вибачте, трапилась халепка, спробуйте зайти ще раз в цей розділ і зробити конкретніший запит (⌒‿⌒)",
+                                        text="Вибачте, трапилась халепка, спробуйте зайти ще раз в цей розділ"
+                                             " і зробити конкретніший запит (⌒‿⌒)",
                                         reply_markup=wiki_menu_keyboard())
 
 
@@ -308,7 +314,8 @@ def massege_handler(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
     context.bot.send_photo(chat_id=chat_id, photo=url)
     context.bot.send_message(chat_id=update.effective_chat.id,
-                             text='Вибачте(o˘◡˘o),але я не вмію тут спілкуватись, оберіть щось із /menu, або отримайте допомогу /help')
+                             text='Вибачте(o˘◡˘o),але я не вмію тут спілкуватись, оберіть щось із /menu, '
+                                  'або отримайте допомогу /help')
 
 
 def cancel(update: Update, context: CallbackContext):
@@ -316,7 +323,7 @@ def cancel(update: Update, context: CallbackContext):
     return ConversationHandler.END
 
 
-@flask_app.route('/init-bot', methods=['GET', 'POST'])
+@flask_app.route('/', methods=['GET', 'POST'])
 def init_bot():
     updater = Updater(token=Config.TOKEN_BOT, use_context=True)
     dispatcher = updater.dispatcher

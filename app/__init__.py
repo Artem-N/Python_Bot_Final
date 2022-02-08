@@ -5,4 +5,4 @@ from config import Config
 flask_app = Flask(__name__)
 
 
-from app import views
+from app import main
