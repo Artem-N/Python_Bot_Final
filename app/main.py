@@ -1,10 +1,6 @@
-import json
-import requests
-import wikipedia.exceptions
-from flask import request
-from bs4 import BeautifulSoup
+
 import logging
-from telegram import Update, KeyboardButton, ReplyKeyboardMarkup, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, MessageHandler, CallbackContext, CallbackQueryHandler, \
     ConversationHandler, Filters
 from wikipedia.exceptions import PageError, DisambiguationError
